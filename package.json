@@ -1,6 +1,13 @@
 {
   "name": "rabbitmq-management-ui-prototype",
+  "description": "A ReactJS RabbitMQ Management UI Prototype",
   "version": "0.1.0",
+  "bugs": {
+    "url": "https://github.com/gmr/rabbitmq-management-ui-prototype/issues"
+  },
+  "homepage": "https://github.com/gmr/rabbitmq-management-ui-prototype",
+  "keywords": [],
+  "author": "Gavin M. Roy <gavinmroy@gmail.com>",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
@@ -10,10 +17,14 @@
     "@types/node": "^12.0.0",
     "@types/react": "^16.9.0",
     "@types/react-dom": "^16.9.0",
+    "bootstrap": "^5.0.0-alpha1",
+    "node-sass": "^4.14.1",
+    "popper.js": "^1.16.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1",
-    "typescript": "~3.7.2"
+    "typescript": "~3.7.2",
+    "websocket-extensions": "^0.1.4"
   },
   "scripts": {
     "start": "react-scripts start",
