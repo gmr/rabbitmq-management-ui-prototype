@@ -13,6 +13,7 @@ function App() {
     const [authenticatedUser, setAuthenticatedUser] = useState<AuthenticatedUser | null>(getAuthenticatedUser());
     const [loggedOut, setLoggedOut] = useState<boolean>(false);
     const [overview, setOverview] = useState<Overview | null>(null);
+    const [vhost, setVHost] = useState<string | null>(null);
     const [vhosts, setVHosts] = useState<Array<VHost> | null>(null);
 
     useEffect(() => {
@@ -26,11 +27,14 @@ function App() {
                 if (values) setVHosts(values);
             });
         }
-        if (authenticatedUser && authenticatedUser.vhost === null && vhosts) {
-            authenticatedUser.vhost = vhosts[0].name;
+    }, [authenticatedUser, overview, vhosts]);
+
+    useEffect(() => {
+        if (authenticatedUser !== null && authenticatedUser.vhost !== vhost) {
+            authenticatedUser.vhost = vhost;
             saveAuthenticatedUser(authenticatedUser);
         }
-    }, [authenticatedUser, overview, vhosts]);
+    }, [authenticatedUser, vhost]);
 
     function onLogout() {
         logout();
@@ -42,7 +46,13 @@ function App() {
 
     return (
         <>
-            <Header authenticatedUser={authenticatedUser} logout={onLogout} overview={overview} vhosts={vhosts} />
+            <Header
+                authenticatedUser={authenticatedUser}
+                logout={onLogout}
+                overview={overview}
+                updateVHost={setVHost}
+                vhosts={vhosts}
+            />
             {authenticatedUser === null && <Login onAuthenticated={setAuthenticatedUser} loggedOut={loggedOut} />}
             {authenticatedUser !== null && (
                 <div className="container-fluid">

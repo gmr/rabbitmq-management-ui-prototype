@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Dispatch, useEffect, useState } from 'react';
 import SVG from 'react-inlinesvg';
 import { useTranslation } from 'react-i18next';
 import { AuthenticatedUser } from '../models/AuthenticatedUser';
@@ -9,15 +9,39 @@ interface Properties {
     logout: { (): void };
     authenticatedUser: AuthenticatedUser | null;
     overview: Overview | null;
+    updateVHost: Dispatch<React.SetStateAction<string | null>>;
     vhosts: Array<VHost> | null;
 }
 
-export function Header({ logout, authenticatedUser, overview, vhosts }: Properties) {
+export function Header({ logout, authenticatedUser, overview, vhosts, updateVHost }: Properties) {
     const { t } = useTranslation();
+    const all_vhosts = t('header_all_vhosts');
+    const [vhost, setVHost] = useState<string | null>(null);
+    const [vhostNames, setVHostNames] = useState<Array<string> | null>(null);
+
+    useEffect(() => {
+        let values = [all_vhosts];
+        if (vhosts !== null) values = values.concat(vhosts.map((value) => value.name));
+        setVHostNames(values);
+    }, [vhosts, all_vhosts]);
+
+    useEffect(() => {
+        if (authenticatedUser === null) {
+            setVHost(all_vhosts);
+        } else {
+            setVHost(authenticatedUser.vhost === null ? all_vhosts : authenticatedUser.vhost);
+        }
+    }, [authenticatedUser, all_vhosts]);
 
     function onLogoutClick(event: React.MouseEvent<HTMLButtonElement>) {
         event.preventDefault();
         logout();
+    }
+
+    function onVHostClick(event: React.MouseEvent<HTMLButtonElement>) {
+        event.preventDefault();
+        updateVHost(event.currentTarget.innerText);
+        setVHost(event.currentTarget.innerText);
     }
 
     return (
@@ -47,7 +71,7 @@ export function Header({ logout, authenticatedUser, overview, vhosts }: Properti
                 )}
                 {authenticatedUser && vhosts && vhosts.length === 1 && (
                     <span className="nav-text float-lg-right mr-2">
-                        {t('virtual_host')}:<span className="text-primary"> {authenticatedUser.vhost}</span>
+                        {t('virtual_host')}:<span className="text-primary"> {vhost}</span>
                     </span>
                 )}
                 {authenticatedUser && vhosts && vhosts.length > 1 && (
@@ -59,18 +83,21 @@ export function Header({ logout, authenticatedUser, overview, vhosts }: Properti
                                 data-toggle="dropdown"
                                 aria-expanded="false"
                             >
-                                {t('virtual_host')}: <span className="text-primary">{authenticatedUser.vhost}</span>
+                                {t('virtual_host')}: <span className="text-primary">{vhost}</span>
                             </button>
                             <ul className="dropdown-menu" aria-labelledby="navbarVirtualHosts">
-                                {vhosts
-                                    .filter((vhost) => vhost.name !== authenticatedUser.vhost)
-                                    .map((vhost) => {
-                                        return (
-                                            <li key={'vhost-' + vhost.name}>
-                                                <button className="btn dropdown-item">{vhost.name}</button>
-                                            </li>
-                                        );
-                                    })}
+                                {vhostNames !== null &&
+                                    vhostNames
+                                        .filter((value) => vhost !== value)
+                                        .map((value) => {
+                                            return (
+                                                <li key={'vhost-' + value}>
+                                                    <button className="btn dropdown-item" onClick={onVHostClick}>
+                                                        {value}
+                                                    </button>
+                                                </li>
+                                            );
+                                        })}
                             </ul>
                         </li>
                     </ul>
