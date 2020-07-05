@@ -6,7 +6,7 @@ import { VHost, getVHosts } from './models/VHost';
 
 import { Header } from './components/Header';
 import { Login } from './views/Login';
-import { Navigation } from './views/Navigation.';
+import { Navigation } from './components/Navigation.';
 import { Footer } from './components/Footer';
 
 function App() {
