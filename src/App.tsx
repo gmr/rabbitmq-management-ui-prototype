@@ -7,19 +7,25 @@ import { Login } from './views/Login';
 
 function App() {
     const [credentials, setCredentials] = useState<Credentials>();
+    const [loggedOut, setLoggedOut] = useState<boolean>(false);
 
     function logout() {
         setCredentials(undefined);
+        setLoggedOut(true);
     }
 
     function renderTag(tag: string) {
-        return <span className="badge bg-primary">{tag}</span>;
+        return (
+            <span key={'tag-' + tag} className="badge bg-primary">
+                {tag}
+            </span>
+        );
     }
 
     return (
         <CredentialsContext.Provider value={credentials}>
             <Header logout={logout} />
-            {credentials === undefined && <Login onAuthenticated={setCredentials} />}
+            {credentials === undefined && <Login onAuthenticated={setCredentials} loggedOut={loggedOut} />}
             {credentials !== undefined && (
                 <div className="container mt-5">
                     <div className="card">

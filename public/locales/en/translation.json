@@ -1,6 +1,8 @@
 {
   "login": "Login",
+  "login_failed": "Login Failed",
   "logout": "Logout",
+  "logged_out": "You have logged out successfully.",
   "username": "Username",
   "password": "Password",
   "server_docs": "Server Docs",
