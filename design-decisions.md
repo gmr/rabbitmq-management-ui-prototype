@@ -10,3 +10,4 @@
 - Make models more than interface definitions, have them contain the logic for fetching, creating, etc.
 - Use local storage for the authenticated user, makes it easy to support multiple-tabs, reloading page, etc
 - Will use Font-Awesome Free for icons license is a combo of MIT and CC BY 4.0 if we use SVG icons
+- Will split out the refresh rate for the graphs and data to a widget that lives just below the header component and is only shown when appropriate
