@@ -6,10 +6,16 @@
     "url": "https://github.com/gmr/rabbitmq-management-ui-prototype/issues"
   },
   "homepage": "https://github.com/gmr/rabbitmq-management-ui-prototype",
-  "keywords": [],
+  "keywords": [
+    "rabbitmq",
+    "rabbitmq-management"
+  ],
   "author": "Gavin M. Roy <gavinmroy@gmail.com>",
   "private": true,
   "dependencies": {
+    "@nivo/line": "^0.62.0",
+    "@reach/router": "^1.3.4",
+    "@testing-library/dom": ">=5",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
@@ -17,11 +23,25 @@
     "@types/node": "^12.0.0",
     "@types/react": "^16.9.0",
     "@types/react-dom": "^16.9.0",
+    "@typescript-eslint/eslint-plugin": "^3.5.0",
+    "@typescript-eslint/parser": "^3.5.0",
     "bootstrap": "^5.0.0-alpha1",
+    "cors": "^2.8.5",
+    "eslint": "^5.0.0 || ^6.0.0 || ^7.0.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-react": "^7.20.3",
+    "i18next": ">= 19.0.0",
+    "i18next-browser-languagedetector": "^5.0.0",
+    "i18next-http-backend": "^1.0.16",
     "node-sass": "^4.14.1",
     "popper.js": "^1.16.0",
+    "prettier": "^2.0.5",
+    "prop-types": ">= 15.5.10 < 16.0.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-i18next": "^11.7.0",
+    "react-inlinesvg": "^2.0.0",
     "react-scripts": "3.4.1",
     "typescript": "~3.7.2",
     "websocket-extensions": "^0.1.4"
@@ -30,8 +50,11 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "svgr": "npx @svgr/cli -d src/images public",
+    "lint": "eslint '*/**/*.{js,ts,tsx}' --quiet --fix"
   },
+  "proxy": "http://localhost:32770",
   "eslintConfig": {
     "extends": "react-app"
   },
