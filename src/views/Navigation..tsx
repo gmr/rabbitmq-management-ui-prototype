@@ -12,35 +12,25 @@ export function Navigation({ authenticatedUser }: Properties) {
     return (
         <ul className="nav nav-tabs">
             <li className="nav-item">
-                <a className="nav-link active" aria-current="page" href="#">
+                <button className="nav-link btn active" aria-current="page">
                     {t('nav_overview')}
-                </a>
+                </button>
             </li>
             <li className="nav-item">
-                <a className="nav-link" href="#">
-                    {t('nav_connections')}
-                </a>
+                <button className="nav-link btn">{t('nav_connections')}</button>
             </li>
             <li className="nav-item">
-                <a className="nav-link" href="#">
-                    {t('nav_channels')}
-                </a>
+                <button className="nav-link btn">{t('nav_channels')}</button>
             </li>
             <li className="nav-item">
-                <a className="nav-link" href="#">
-                    {t('nav_exchanges')}
-                </a>
+                <button className="nav-link btn">{t('nav_exchanges')}</button>
             </li>
             <li className="nav-item">
-                <a className="nav-link" href="#">
-                    {t('nav_queues')}
-                </a>
+                <button className="nav-link btn">{t('nav_queues')}</button>
             </li>
             {authenticatedUser && authenticatedUser.tags.includes('administrator') && (
                 <li className="nav-item">
-                    <a className="nav-link" href="#">
-                        {t('nav_admin')}
-                    </a>
+                    <button className="nav-link btn">{t('nav_admin')}</button>
                 </li>
             )}
         </ul>
