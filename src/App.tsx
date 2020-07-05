@@ -12,11 +12,23 @@ function App() {
         setCredentials(undefined);
     }
 
+    function renderTag(tag: string) {
+        return <span className="badge bg-primary">{tag}</span>
+    }
+
     return (
         <CredentialsContext.Provider value={credentials}>
             <Header logout={logout} />
             {credentials === undefined && <Login onAuthenticated={setCredentials} />}
-            {credentials !== undefined && <div>Authenticated</div>}
+            {credentials !== undefined && <div className="container mt-5">
+                <div className="card">
+                    <div className="card-body">
+                        Authenticated as <strong>{credentials.username}</strong>
+                        <br />
+                        Tags {credentials.tags.map(renderTag)}
+                    </div>
+                </div>
+            </div>}
             <Footer />
         </CredentialsContext.Provider>
     );

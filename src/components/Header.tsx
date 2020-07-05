@@ -18,7 +18,7 @@ export function Header({ logout }: Properties) {
                 </div>
                 {credentials !== undefined && (
                     <div className="offset-9 col-1 text-right pr-0 mr-0">
-                        <button className="btn btn-secondary" onClick={logout}>
+                        <button className="btn btn-secondary btn-sm" onClick={logout}>
                             {t('logout')}
                         </button>
                     </div>
