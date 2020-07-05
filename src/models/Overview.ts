@@ -1,73 +1,6 @@
-export interface Context {
-    sslOpts: Array<string>;
-    node: string;
-    description: string;
-    path: string;
-    cowboyOpts: string;
-    port: number;
-}
-
-export interface Listener {
-    node: string;
-    protocol: string;
-    ipAddress: string;
-    port: number;
-    socketOpts: {
-        backlog: number;
-        nodelay: boolean;
-        linger: [boolean, number];
-        exitOnClose: boolean;
-    };
-}
+import { httpGet } from '../http-client';
 
 export interface Overview {
-    churnRates: {
-        channelClosed: number;
-        channelClosedDetails: { rate: number };
-        channelCreated: number;
-        channelCreatedDetails: { rate: number };
-        connectionClosed: number;
-        connectionClosedDetails: { rate: number };
-        connectionCreated: number;
-        connectionCreatedDetails: { rate: number };
-        queueCreated: number;
-        queueCreatedDetails: { rate: number };
-        queueDeclared: number;
-        queueDeclaredDetails: { rate: number };
-        queueDeleted: number;
-        queueDeletedDetails: { rate: number };
-    };
-    clusterName: string;
-    contexts: Array<Context>;
-    disableStats: boolean;
-    enableQueueTotals: boolean;
-    erlangFullVersion: string;
-    erlangVersion: string;
-    exchangeTypes: Array<{ name: string; description: string; enabled: boolean }>;
-    listeners: Array<Listener>;
-    managementVersion: string;
-    messageStats: Record<string, number>;
-    node: string;
-    objectTotals: {
-        channels: number;
-        connections: number;
-        consumers: number;
-        exchanges: number;
-        queues: number;
-    };
-    queueTotals: Record<string, number>;
-    rabbitmqVersion: string;
-    rates_mode: 'none' | 'basic' | 'detailed';
-    sampleRetentionPolicies: {
-        global: Array<number>;
-        basic: Array<number>;
-        detailed: Array<number>;
-    };
-    statisticsDbEventQueue: number;
-    statisticsDbNode: string;
-}
-
-interface Response {
     churn_rates: {
         channel_closed: number;
         channel_closed_details: { rate: number };
@@ -85,13 +18,31 @@ interface Response {
         queue_deleted_details: { rate: number };
     };
     cluster_name: string;
-    contexts: Array<Context>;
+    contexts: Array<{
+        ssl_opts: Array<string>;
+        node: string;
+        description: string;
+        path: string;
+        cowboy_opts: string;
+        port: number;
+    }>;
     disable_stats: boolean;
     enable_queue_totals: boolean;
     erlang_full_version: string;
     erlang_version: string;
     exchange_types: Array<{ name: string; description: string; enabled: boolean }>;
-    listeners: Array<Listener>;
+    listeners: Array<{
+        node: string;
+        protocol: string;
+        ip_address: string;
+        port: number;
+        socket_opts: {
+            backlog: number;
+            nodelay: boolean;
+            linger: [boolean, number];
+            exit_on_close: boolean;
+        };
+    }>;
     management_version: string;
     message_stats: Record<string, number>;
     node: string;
@@ -112,4 +63,9 @@ interface Response {
     };
     statistics_db_event_queue: number;
     statistics_db_node: string;
+}
+
+export async function getOverview(): Promise<Overview | null> {
+    const result = await httpGet<Overview>('/api/overview');
+    return result.data;
 }

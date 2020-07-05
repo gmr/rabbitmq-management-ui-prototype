@@ -1,10 +1,9 @@
 import React, { Dispatch, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-
-import { Credentials, getModel } from '../models/Credentials';
+import { AuthenticatedUser, login } from '../models/AuthenticatedUser';
 
 interface Properties {
-    onAuthenticated: Dispatch<React.SetStateAction<Credentials | undefined>>;
+    onAuthenticated: Dispatch<React.SetStateAction<AuthenticatedUser | null>>;
     loggedOut: boolean;
 }
 
@@ -27,9 +26,9 @@ export function Login(props: Properties) {
         event.preventDefault();
         if (credentials.username && credentials.password) {
             setAuthenticating(true);
-            getModel(credentials.username, credentials.password).then((result) => {
-                setLoggedOut(false);
+            login(credentials.username, credentials.password).then((result) => {
                 setAuthenticating(false);
+                setLoggedOut(false);
                 if (result !== undefined) {
                     setError(false);
                     props.onAuthenticated(result);

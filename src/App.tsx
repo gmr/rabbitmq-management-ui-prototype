@@ -1,16 +1,28 @@
-import React, { useState } from 'react';
-import { Credentials } from './models/Credentials';
-import { CredentialsContext } from './contexts/Credentials';
+import React, { useEffect, useState } from 'react';
+
+import { AuthenticatedUser, getAuthenticatedUser, logout } from './models/AuthenticatedUser';
+import { Overview, getOverview } from './models/Overview';
+
 import { Footer } from './components/Footer';
 import { Header } from './components/Header';
 import { Login } from './views/Login';
 
 function App() {
-    const [credentials, setCredentials] = useState<Credentials>();
+    const [authenticatedUser, setAuthenticatedUser] = useState<AuthenticatedUser | null>(getAuthenticatedUser());
     const [loggedOut, setLoggedOut] = useState<boolean>(false);
+    const [overview, setOverview] = useState<Overview | null>(null);
 
-    function logout() {
-        setCredentials(undefined);
+    useEffect(() => {
+        if (authenticatedUser) {
+            getOverview().then((overview) => {
+                if (overview) setOverview(overview);
+            });
+        }
+    }, [authenticatedUser]);
+
+    function onLogout() {
+        logout();
+        setAuthenticatedUser(null);
         setLoggedOut(true);
     }
 
@@ -23,22 +35,22 @@ function App() {
     }
 
     return (
-        <CredentialsContext.Provider value={credentials}>
-            <Header logout={logout} />
-            {credentials === undefined && <Login onAuthenticated={setCredentials} loggedOut={loggedOut} />}
-            {credentials !== undefined && (
+        <>
+            <Header authenticatedUser={authenticatedUser} logout={onLogout} overview={overview} />
+            {authenticatedUser === null && <Login onAuthenticated={setAuthenticatedUser} loggedOut={loggedOut} />}
+            {authenticatedUser !== null && (
                 <div className="container mt-5">
                     <div className="card">
                         <div className="card-body">
-                            Authenticated as <strong>{credentials.username}</strong>
+                            Authenticated as <strong>{authenticatedUser.username}</strong>
                             <br />
-                            Tags {credentials.tags.map(renderTag)}
+                            Tags {authenticatedUser.tags.map(renderTag)}
                         </div>
                     </div>
                 </div>
             )}
             <Footer />
-        </CredentialsContext.Provider>
+        </>
     );
 }
 

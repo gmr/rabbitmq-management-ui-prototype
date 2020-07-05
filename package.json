@@ -54,7 +54,7 @@
     "svgr": "npx @svgr/cli -d src/images public",
     "lint": "eslint '*/**/*.{js,ts,tsx}' --quiet --fix"
   },
-  "proxy": "http://localhost:32770",
+  "proxy": "http://localhost:32768",
   "eslintConfig": {
     "extends": "react-app"
   },
