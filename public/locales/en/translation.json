@@ -2,5 +2,12 @@
   "login": "Login",
   "logout": "Logout",
   "username": "Username",
-  "password": "Password"
+  "password": "Password",
+  "server_docs": "Server Docs",
+  "tutorials": "Tutorials",
+  "community_support": "Community Support",
+  "community_slack": "Community Slack",
+  "commercial_support": "Commercial Support",
+  "plugins": "Plugins",
+  "changelog": "Changelog"
 }
