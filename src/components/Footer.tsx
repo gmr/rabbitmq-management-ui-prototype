@@ -13,32 +13,32 @@ export function Footer() {
                 </li>
                 <li className="list-inline-item mr-4">
                     <a href="https://www.rabbitmq.com/admin-guide.html" target="_new">
-                        {t('server_docs')}
+                        {t('footer_server_docs')}
                     </a>
                 </li>
                 <li className="list-inline-item mr-4">
                     <a href="https://www.rabbitmq.com/getstarted.html" target="_new">
-                        {t('tutorials')}
+                        {t('footer_tutorials')}
                     </a>
                 </li>
                 <li className="list-inline-item mr-4">
                     <a href="https://groups.google.com/forum/#!forum/rabbitmq-users" target="_new">
-                        {t('community_support')}
+                        {t('footer_community_support')}
                     </a>
                 </li>
                 <li className="list-inline-item mr-4">
                     <a href="https://rabbitmq-slack.herokuapp.com/" target="_new">
-                        {t('community_slack')}
+                        {t('footer_community_slack')}
                     </a>
                 </li>
                 <li className="list-inline-item mr-4">
                     <a href="https://www.rabbitmq.com/services.html" target="_new">
-                        {t('commercial_support')}
+                        {t('footer_commercial_support')}
                     </a>
                 </li>
                 <li className="list-inline-item mr-4">
                     <a href="https://www.rabbitmq.com/plugins.html" target="_new">
-                        {t('plugins')}
+                        {t('footer_plugins')}
                     </a>
                 </li>
                 <li className="list-inline-item mr-4">
@@ -48,7 +48,7 @@ export function Footer() {
                 </li>
                 <li className="list-inline-item mr-4">
                     <a href="https://www.rabbitmq.com/changelog.html" target="_new">
-                        {t('changelog')}
+                        {t('footer_changelog')}
                     </a>
                 </li>
             </ul>

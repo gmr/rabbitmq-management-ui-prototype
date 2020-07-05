@@ -1,7 +1,15 @@
+$primary: #f60;
+
 @import '../../node_modules/bootstrap/scss/bootstrap';
 
 body {
-  margin: 1em 1.5em;
+  margin: 5em 1.5em 0 1.5em;
+}
+
+nav {
+  .nav-text {
+    color: rgba(0, 0, 0, 0.55);
+  }
 }
 
 footer {

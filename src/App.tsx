@@ -1,52 +1,52 @@
 import React, { useEffect, useState } from 'react';
 
-import { AuthenticatedUser, getAuthenticatedUser, logout } from './models/AuthenticatedUser';
+import { AuthenticatedUser, getAuthenticatedUser, logout, saveAuthenticatedUser } from './models/AuthenticatedUser';
 import { Overview, getOverview } from './models/Overview';
+import { VHost, getVHosts } from './models/VHost';
 
-import { Footer } from './components/Footer';
 import { Header } from './components/Header';
 import { Login } from './views/Login';
+import { Navigation } from './views/Navigation.';
+import { Footer } from './components/Footer';
 
 function App() {
     const [authenticatedUser, setAuthenticatedUser] = useState<AuthenticatedUser | null>(getAuthenticatedUser());
     const [loggedOut, setLoggedOut] = useState<boolean>(false);
     const [overview, setOverview] = useState<Overview | null>(null);
+    const [vhosts, setVHosts] = useState<Array<VHost> | null>(null);
 
     useEffect(() => {
-        if (authenticatedUser) {
+        if (authenticatedUser && overview === null) {
             getOverview().then((overview) => {
                 if (overview) setOverview(overview);
             });
         }
-    }, [authenticatedUser]);
+        if (authenticatedUser && vhosts === null) {
+            getVHosts().then((values) => {
+                if (values) setVHosts(values);
+            });
+        }
+        if (authenticatedUser && authenticatedUser.vhost === null && vhosts) {
+            authenticatedUser.vhost = vhosts[0].name;
+            saveAuthenticatedUser(authenticatedUser);
+        }
+    }, [authenticatedUser, overview, vhosts]);
 
     function onLogout() {
         logout();
         setAuthenticatedUser(null);
         setLoggedOut(true);
-    }
-
-    function renderTag(tag: string) {
-        return (
-            <span key={'tag-' + tag} className="badge bg-primary">
-                {tag}
-            </span>
-        );
+        setOverview(null);
+        setVHosts(null);
     }
 
     return (
         <>
-            <Header authenticatedUser={authenticatedUser} logout={onLogout} overview={overview} />
+            <Header authenticatedUser={authenticatedUser} logout={onLogout} overview={overview} vhosts={vhosts} />
             {authenticatedUser === null && <Login onAuthenticated={setAuthenticatedUser} loggedOut={loggedOut} />}
             {authenticatedUser !== null && (
-                <div className="container mt-5">
-                    <div className="card">
-                        <div className="card-body">
-                            Authenticated as <strong>{authenticatedUser.username}</strong>
-                            <br />
-                            Tags {authenticatedUser.tags.map(renderTag)}
-                        </div>
-                    </div>
+                <div className="container-fluid">
+                    <Navigation authenticatedUser={authenticatedUser} />
                 </div>
             )}
             <Footer />

@@ -53,6 +53,8 @@ export interface Overview {
         exchanges: number;
         queues: number;
     };
+    product_name: string;
+    product_version: string;
     queue_totals: Record<string, number>;
     rabbitmq_version: string;
     rates_mode: 'none' | 'basic' | 'detailed';
