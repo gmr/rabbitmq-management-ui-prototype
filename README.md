@@ -4,7 +4,7 @@ A ReactJS RabbitMQ Management UI Prototype
 
 ## What does it look like?
 
-![Screenshot](/2020-07-05/logged-in.png "Screenshot")
+![Screenshot](screenshots/2020-07-05/logged-in.png "Screenshot")
 
 ## How can you contribute?
 
