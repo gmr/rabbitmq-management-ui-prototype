@@ -5,6 +5,7 @@ export interface AuthenticatedUser {
     password: string;
     tags: Array<string>;
     vhost: string | null;
+    refresh: number;
 }
 
 interface Response {
@@ -23,7 +24,8 @@ export async function login(username: string, password: string): Promise<Authent
         username: username,
         password: password,
         tags: [],
-        vhost: null
+        vhost: null,
+        refresh: 0
     };
     const result = await httpGet<Response>('/api/whoami', value);
     if (!result.success || !result.data) return null;

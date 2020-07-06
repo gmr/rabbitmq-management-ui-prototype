@@ -9,7 +9,7 @@ interface Properties {
     logout: { (): void };
     authenticatedUser: AuthenticatedUser | null;
     overview: Overview | null;
-    updateVHost: Dispatch<React.SetStateAction<string | null>>;
+    updateVHost: Dispatch<React.SetStateAction<string | null | undefined>>;
     vhosts: Array<VHost> | null;
 }
 
