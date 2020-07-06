@@ -2,6 +2,18 @@
 
 A ReactJS RabbitMQ Management UI Prototype 
 
+## Warning
+
+This is a very early prototype and doesn't do much yet. I'm currently working
+through the more framework oriented aspects of writing an application like this.
+
+## Project Goals
+
+The primary goal for the project is to provide a modern replacement for the existing
+RabbitMQ UI. The hope is that if it's solid enough, and that the right design choices 
+are made, that the RabbitMQ team will consider it for inclusion or replacement as the
+built-in Management UI.
+
 ## What does it look like?
 
 ![Screenshot](screenshots/2020-07-05/logged-in.png "Screenshot")
