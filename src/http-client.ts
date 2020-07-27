@@ -23,8 +23,7 @@ export async function httpGet<T>(
         credentials: 'include'
     };
     const response: Response = await fetch(path, options);
-    const text: string = await response.text();
-    const data: T = text && JSON.parse(text);
+    const data: T = await response.json();
     if (response.status >= 200 && response.status < 300) return { success: true, data: data };
     return { success: false, data: null };
 }
